@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080d18">
+<title>迷雾档案：真相追踪 | KMD 卡米达</title>
+<style>
+:root{--bg:#080d18;--panel:#101a2b;--panel2:#142238;--line:#263b59;--blue:#68a9ff;--cyan:#68e0dc;--gold:#f2c879;--text:#eaf1ff;--muted:#91a2bd;--red:#ff7885}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1c3456 0%,#0b1424 45%,#070b13 100%);color:var(--text);font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:8px 0 18px;gap:15px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:43px;height:43px;border:1px solid var(--blue);border-radius:12px;display:grid;place-items:center;color:var(--cyan);font-weight:900;box-shadow:0 0 22px #3c83d533}.brand strong{letter-spacing:2px}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:2px;margin-top:3px}
+.tag{font-size:12px;color:var(--cyan);border:1px solid #68e0dc55;border-radius:30px;padding:7px 12px}
+.hero{padding:34px 0 24px}.eyebrow{color:var(--cyan);letter-spacing:4px;font-size:11px}.hero h1{font-size:clamp(30px,5vw,52px);margin:10px 0 8px;letter-spacing:2px}.hero h1 span{color:var(--blue)}.hero p{color:var(--muted);max-width:700px;line-height:1.8;margin:0}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}.panel{background:linear-gradient(145deg,#132139ee,#0d1728ee);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 18px 50px #0003}
+.panel h2,.panel h3{margin:0 0 14px}.case{width:100%;text-align:left;color:var(--text);background:#0b1423;border:1px solid var(--line);border-radius:12px;padding:14px;margin:7px 0;transition:.2s}.case:hover,.case.active{border-color:var(--blue);background:#172943}.case b{display:block;font-size:14px}.case small{display:block;color:var(--muted);margin-top:6px}.case .level{float:right;color:var(--gold);font-size:11px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.stat{background:#0b1423;border:1px solid var(--line);padding:12px;border-radius:10px}.stat small{display:block;color:var(--muted);font-size:11px}.stat b{font-size:20px;color:var(--cyan)}
+.main{min-width:0}.case-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.case-head h2{font-size:23px;margin:0 0 7px}.muted{color:var(--muted)}.pill{font-size:11px;color:var(--gold);border:1px solid #f2c87955;border-radius:30px;padding:5px 9px;white-space:nowrap}
+.story{line-height:1.95;font-size:15px;background:#0a1423;border-left:3px solid var(--blue);padding:17px 18px;border-radius:0 12px 12px 0;margin:17px 0}.section-title{font-size:12px;letter-spacing:2px;color:var(--cyan);margin:22px 0 10px}
+.chat{height:250px;overflow:auto;background:#091321;border:1px solid var(--line);border-radius:12px;padding:12px}.msg{margin:8px 0;max-width:90%;padding:10px 13px;border-radius:12px;line-height:1.65;font-size:13px}.msg.player{margin-left:auto;background:#1a3657;border:1px solid #477bb4}.msg.host{background:#172337;border:1px solid #2b405c}.msg b{display:block;font-size:10px;color:var(--cyan);margin-bottom:4px}
+.ask{display:flex;gap:8px;margin-top:9px}.ask input{flex:1;min-width:0;background:#091321;border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--text);outline:none}.ask input:focus,textarea:focus{border-color:var(--blue)}
+.btn{border:1px solid #477fbd;background:linear-gradient(135deg,#2864a3,#234a7b);color:white;padding:11px 16px;border-radius:10px;font-weight:650}.btn:hover{filter:brightness(1.15)}.btn.secondary{background:#172337;border-color:var(--line);color:var(--text)}.btn.gold{background:linear-gradient(135deg,#8d6930,#62471f);border-color:#c99c50}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.evidence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.clue{padding:12px;background:#0b1423;border:1px solid var(--line);border-radius:10px;font-size:13px;color:var(--muted)}.clue.found{border-color:#4e9c91;color:var(--text);background:#102b2a}.clue strong{display:block;color:var(--text);margin-bottom:5px}.clue.locked strong{color:#8190a6}
+textarea{width:100%;min-height:85px;resize:vertical;background:#091321;border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--text);outline:none;line-height:1.6}
+footer{color:#667891;text-align:center;font-size:11px;padding:25px 0 8px;letter-spacing:1px}
+.overlay{position:fixed;inset:0;background:#030711df;display:none;place-items:center;padding:20px;z-index:5}.overlay.show{display:grid}.modal{max-width:650px;width:100%;max-height:85vh;overflow:auto;background:#111e32;border:1px solid #5277a5;border-radius:18px;padding:24px;box-shadow:0 20px 80px #0009}.modal h2{color:var(--gold)}.solution{line-height:1.9;white-space:pre-line}.close{float:right}
+@media(max-width:760px){.wrap{padding:14px}.layout{grid-template-columns:1fr}.case-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}.case{margin:0;padding:11px}.hero{padding:25px 0 18px}.chat{height:220px}.case-head h2{font-size:20px}}
+@media(max-width:420px){.case-list{grid-template-columns:1fr}.evidence{grid-template-columns:1fr}.tag{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="brand"><div class="logo">KMD</div><div><strong>卡米达 · 档案局</strong><small>KAMIDA MYSTERY DIVISION</small></div></div>
+ <div class="tag">INTERACTIVE DETECTIVE GAME</div>
+</header>
+<section class="hero">
+ <div class="eyebrow">CASE FILES / 未结案件档案</div>
+ <h1>迷雾档案：<span>真相追踪</span></h1>
+ <p>每一个细节都可能是突破口。向系统提问、寻找隐藏线索、拼接时间线，别让真正的答案从你的眼前溜走。</p>
+</section>
+<div class="layout">
+ <aside class="panel">
+  <h3>案件目录 <span class="muted" style="font-size:11px;font-weight:400">/ CASES</span></h3>
+  <div class="case-list" id="caseList"></div>
+  <div class="stats">
+   <div class="stat"><small>已破解案件</small><b id="solvedCount">0</b></div>
+   <div class="stat"><small>调查积分</small><b id="score">0</b></div>
+  </div>
+  <p class="muted" style="font-size:11px;line-height:1.7;margin:15px 0 0">提示：你可以提出任何问题。系统会根据案件事实回答“是 / 否 / 不重要 / 部分正确”。</p>
+ </aside>
+ <main class="main">
+  <section class="panel">
+   <div class="case-head"><div><h2 id="caseTitle">档案载入中</h2><div class="muted" id="caseMeta" style="font-size:12px"></div></div><span class="pill" id="caseLevel">调查中</span></div>
+   <div class="story" id="story"></div>
+   <div class="section-title">01 / 讯问记录 · INTERROGATION</div>
+   <div class="chat" id="chat" aria-live="polite"></div>
+   <div class="ask"><input id="question" maxlength="120" placeholder="输入你的问题，例如：窗户是从里面锁上的吗？"><button class="btn" id="askBtn">提问</button></div>
+   <div class="actions">
+    <button class="btn secondary" id="hintBtn">获取提示（-5分）</button>
+    <button class="btn secondary" id="resetBtn">重置调查</button>
+    <button class="btn gold" id="solveBtn">提交推理 / 查看真相</button>
+   </div>
+   <div class="section-title">02 / 证据墙 · EVIDENCE BOARD</div>
+   <div class="evidence" id="evidence"></div>
+   <div class="section-title">03 / 你的推理 · YOUR DEDUCTION</div>
+   <textarea id="theory" placeholder="写下你的推理：作案动机、关键手法、时间线，以及你认为真正的真相……"></textarea>
+  </section>
+ </main>
+</div>
+<footer>KMD KAMIDA GAME STUDIO · 虚构游戏项目 · ALL CASES ARE FICTIONAL</footer>
+</div>
+<div class="overlay" id="overlay"><div class="modal"><button class="btn secondary close" id="closeModal">关闭</button><h2 id="modalTitle">案件结案报告</h2><div class="solution" id="solution"></div><div class="actions"><button class="btn" id="nextBtn">返回案件</button></div></div></div>
+<script>
+const cases=[
+{ id:1,title:"午夜密室",meta:"案件编号 KMD-001 · 封闭空间 · 难度：★☆☆",level:"初级案件",
+story:"凌晨 00:15，收藏家林先生被发现死在书房。书房门从里面反锁，窗户也关得严严实实。桌上有一杯只喝了一半的红茶，地毯上有一小片水渍。警方检查后发现，没有任何人破门而入的痕迹。嫌疑人有三位：管家、画家和林先生的侄子。你需要找出：凶手如何离开密室？",
+clues:[
+["现场","门从内部反锁，门锁没有被破坏。"],
+["红茶","茶杯中检出镇静类药物，杯沿有两个人的指纹。"],
+["水渍","水渍旁有一根极细的透明塑料丝。"],
+["窗户","窗户内侧积灰完整，没有人从窗户进出的痕迹。"],
+["钥匙","备用钥匙一直挂在客厅钥匙柜中。"],
+["时间线","管家在 23:50 送过红茶，00:05 听见书房传出杯子落地声。"]
+],
+answers:[
+{keys:["门","反锁","锁","离开","出去"],a:"是。密室的关键不在于如何开门，而在于门是如何被重新锁上的。"},
+{keys:["水","塑料","丝","线","冰"],a:"是。水渍和透明细丝是重要物证，值得重点调查。",clue:2},
+{keys:["窗","窗户","阳台"],a:"否。窗户没有被使用过，现场积灰可以证明这一点。",clue:3},
+{keys:["红茶","茶","药","毒","杯子"],a:"是。红茶与案件直接相关，但药物本身并不是密室机关。",clue:1},
+{keys:["管家"],a:"部分正确。管家掌握关键时间线，但仅凭送茶还不能定罪。"},
+{keys:["侄子","画家"],a:"目前没有足够证据指向这个人。请继续调查现场物证。"},
+{keys:["凶手","是谁","真凶"],a:"先别急着锁定嫌疑人。请先解释门锁、塑料丝和水渍之间的联系。"}
+],
+hint:["仔细观察水渍旁边的透明塑料丝。","想一想：如果用一根细线牵动门内的插销，门外的人能否完成反锁？","凶手用细线牵动门内插销完成反锁，再抽走细线。冰块融化形成水渍，掩盖了机关痕迹。"],
+solution:"真相还原：管家在红茶中下药，趁林先生意识模糊时离开书房。他事先将透明细线系在门内插销上，关门后从门缝外牵动细线，使插销落下，制造出从内部反锁的假象。细线被抽走后，现场只留下极不起眼的痕迹。桌边的冰块融化形成水渍，干扰了警方对现场痕迹的判断。真正的突破口是门锁结构、细线和水渍。此案为虚构推理谜题。"},
+{ id:2,title:"消失的证人",meta:"案件编号 KMD-002 · 不在场证明 · 难度：★★☆",level:"进阶案件",
+story:"一名重要证人在晚上 21:00 离奇失踪。监控显示，他在 20:30 独自走进酒店电梯，此后没有任何画面拍到他离开酒店。酒店只有一部客梯和一部货梯。警方搜查了所有楼层，却没有找到他。奇怪的是，前台记录显示，他的房卡在 21:10 还被使用过一次。证人究竟去了哪里？",
+clues:[["电梯监控","客梯监控完整，但货梯在 20:00 至 22:00 之间维修。"],["房卡记录","21:10 的刷卡记录来自酒店内部员工通道。"],["消防通道","消防门报警器在 20:45 被触发过一次。"],["行李","证人的行李仍在房间，护照也没有带走。"],["员工证词","一名清洁工称，21:00 左右听到地下室有推车声。"],["酒店结构","酒店地下室与隔壁建筑的停车场有一条封闭的维修连廊。"]],
+answers:[
+{keys:["电梯","客梯","货梯"],a:"部分正确。电梯监控是关键，但证人不一定通过电梯离开。",clue:0},
+{keys:["房卡","刷卡","21:10"],a:"是。刷卡记录真实，但使用者不一定是证人本人。",clue:1},
+{keys:["消防","楼梯","安全门"],a:"是。消防通道在关键时间被使用过。",clue:2},
+{keys:["地下室","推车","清洁工"],a:"是。地下室的声音值得调查，可能有人利用了酒店日常工作。",clue:4},
+{keys:["停车场","连廊","隔壁","维修"],a:"是。酒店与隔壁建筑之间存在一条不对外开放的通道。",clue:5},
+{keys:["行李","护照"],a:"是。证人并没有准备长期出远门。",clue:3}
+],
+hint:["别只盯着电梯监控，酒店还有哪些非公开通道？","21:10 的房卡可能是别人使用的；注意员工通道和地下室。","证人藏进清洁推车，经地下室维修连廊进入隔壁停车场；员工用证人的房卡制造其仍在酒店活动的假象。"],
+solution:"真相还原：证人早已发现自己被跟踪，于是与一名酒店员工合作。他在消防通道进入地下室，藏入大型清洁推车，再通过地下室通往隔壁停车场的维修连廊离开。21:10 的房卡记录是员工使用证人的房卡制造的假象。电梯监控没有拍到他离开，是因为他根本没有乘坐电梯离开。此案为虚构推理谜题。"},
+{ id:3,title:"雨夜的第四个人",meta:"案件编号 KMD-003 · 证词矛盾 · 难度：★★★",level:"高级案件",
+story:"暴雨夜，一栋别墅发生命案。屋内原本有三个人：主人、客人和保姆。警方到达时，三人都声称案发时自己独自在房间。现场却有四把湿雨伞，门口地毯上有四组不同方向的脚印。别墅当晚只有三人登记入住。第四个人究竟是谁？",
+clues:[["雨伞","四把雨伞中，有一把伞的伞柄完全干燥。"],["脚印","第四组脚印从屋内走向门外，而不是从门外进入。"],["门锁","大门没有被撬动，只有主人持有大门钥匙。"],["监控","别墅门外摄像头在案发前 10 分钟被人为转向。"],["壁炉","壁炉中有一张被烧毁一半的访客登记单。"],["证词","保姆称自己整晚没有离开厨房，但厨房窗台有新鲜雨滴。"]],
+answers:[
+{keys:["雨伞","伞"],a:"是。雨伞的干湿程度能帮助判断它是否真的被雨淋过。",clue:0},
+{keys:["脚印","方向"],a:"是。第四组脚印的方向很重要，它可能不是进入别墅的人留下的。",clue:1},
+{keys:["钥匙","门锁"],a:"是。大门没有被撬，说明第四个人可能拥有进入权限。",clue:2},
+{keys:["监控","摄像头"],a:"是。有人提前处理了监控，说明这不是偶然闯入。",clue:3},
+{keys:["登记","纸","壁炉"],a:"是。被烧毁的登记单隐藏着第四个人的身份线索。",clue:4},
+{keys:["保姆","厨房","窗台"],a:"保姆的证词存在矛盾。厨房窗台的雨滴说明她可能接触过室外。",clue:5}
+],
+hint:["第四组脚印的方向，与通常的入室脚印相反。","第四个人可能不是外来者，而是一个本来就在屋内的人。","所谓第四个人，是保姆伪造的访客身份：她用湿鞋制造额外脚印，伞和登记单则是她安排的误导。"],
+solution:"真相还原：所谓的“第四个人”并不存在。保姆利用暴雨夜制造了第四人到访的假象：她从厨房窗户短暂出去再返回，留下方向异常的脚印；将一把伞放在门口，并烧毁伪造的访客登记单。她还提前转动了监控摄像头，试图让警方相信有外人进入。第四把伞的干燥伞柄、脚印方向和厨房窗台的雨滴共同揭穿了她的谎言。此案为虚构推理谜题。"},
+{ id:4,title:"凌晨三点的来电",meta:"案件编号 KMD-004 · 时间诡计 · 难度：★★☆",level:"进阶案件",
+story:"凌晨 03:00，警方接到一通报警电话。电话里，一个男人声称自己刚刚目睹邻居遇害，却始终不肯透露姓名。警方赶到现场时，屋内没有尸体，只有一部正在播放语音留言的手机。邻居的家门从外面上锁，屋内的闹钟停在 02:10。第二天，报警人被发现死在自己家中。警方确认，报警电话是在前一天晚上 22:00 录制、凌晨 03:00 自动发送的。谁在撒谎？",
+clues:[["电话","报警电话并非实时拨出，而是定时发送的录音。"],["闹钟","闹钟停在 02:10，但没有证据证明那就是死亡时间。"],["门锁","邻居家的门锁从外侧锁上，钥匙在报警人家中。"],["语音留言","手机里还有一段未发送的语音，背景中能听见火车鸣笛。"],["列车时刻","附近末班列车在 22:15 经过，凌晨 03:00 没有列车运行。"],["邻居","所谓遇害的邻居其实在案发前一天就已搬离。"]],
+answers:[
+{keys:["录音","定时","电话","03:00"],a:"是。时间信息是本案最重要的突破口，报警内容不代表报警人在凌晨仍然活着。",clue:0},
+{keys:["闹钟","02:10","时间"],a:"部分正确。闹钟停止的时间可能是人为设置的，并不一定是死亡时间。",clue:1},
+{keys:["钥匙","门锁"],a:"是。钥匙的位置说明报警人有机会从外侧锁门。",clue:2},
+{keys:["火车","鸣笛","列车"],a:"是。背景声音能帮助确定录音的真实时间。",clue:3},
+{keys:["搬走","搬离","邻居"],a:"是。邻居已经搬走，报警人描述的现场可能根本不存在。",clue:5},
+{keys:["报警人","自己","死者"],a:"方向正确。请把录音时间、列车声音和邻居搬离的时间联系起来。"}
+],
+hint:["先确认报警电话究竟是在什么时候录制的。","录音里的火车鸣笛，是一个可以核对的时间标记。","报警人提前录制了虚假的目击内容并设置定时发送，试图制造自己凌晨仍在活动的假象；他实际在当晚录音后遇害。"],
+solution:"真相还原：报警人早在前一天晚上录制了报警内容，并设置在凌晨 03:00 自动发送。他故意把闹钟停在 02:10，制造死亡时间较晚的假象。录音中的火车鸣笛证明内容录制于 22:15 前后，而邻居早已搬离，所谓目击现场并不存在。报警人试图利用定时发送制造不在场证明，但最终暴露了时间矛盾。此案为虚构推理谜题。"},
+{ id:5,title:"没有影子的目击者",meta:"案件编号 KMD-005 · 视觉误导 · 难度：★★☆",level:"进阶案件",
+story:"美术馆闭馆后，一幅名画失窃。唯一的目击者称，自己在走廊尽头看见一个没有影子的人抱着画框离开。监控画面里确实出现了一个人影，但画面中看不到他的影子。保安坚称走廊灯光一直正常，地面也没有积水。警方检查后发现，画框比失窃前轻了很多。窃贼究竟利用了什么手法？",
+clues:[["监控画面","走廊摄像头是红外夜视设备，画面并非肉眼所见的真实光照。"],["灯光","走廊灯光正常，但监控在夜间自动切换红外模式。"],["画框","画框仍在原处附近被找到，重量明显变轻。"],["画布","画布背面有一道新鲜切口。"],["目击者","目击者当时隔着玻璃观察走廊，玻璃有轻微反光。"],["搬运路线","画作被卷起后藏进了保安制服内衬。"]],
+answers:[
+{keys:["红外","夜视","监控"],a:"是。监控画面中的光影效果与肉眼观察并不完全相同。",clue:0},
+{keys:["灯","光","影子"],a:"部分正确。关键不是灯是否亮着，而是摄像设备如何记录光线。",clue:1},
+{keys:["画框","重量","变轻"],a:"是。失窃的可能不是整个画框，而是其中的一部分。",clue:2},
+{keys:["画布","切口","割"],a:"是。画布背面的切口是重要物证。",clue:3},
+{keys:["玻璃","反光","目击者"],a:"是。目击者看到的画面可能受到玻璃反射影响。",clue:4},
+{keys:["制服","保安","衣服"],a:"是。保安的衣物可能提供了隐藏画作的空间。",clue:5}
+],
+hint:["不要把监控画面等同于人眼看到的画面。","检查画框重量和画布背面，失窃的对象可能被拆分。","窃贼是保安。他利用红外监控造成影子缺失的视觉误导，割下画布卷起藏入制服内衬，留下较轻的画框。"],
+solution:"真相还原：窃贼就是熟悉监控设备的保安。夜间红外监控呈现的画面与可见光环境不同，不能单凭画面判断是否存在影子。保安利用这一点制造“无影人”的传闻，转移调查方向。他从画框背面割下画布，卷起后藏入制服内衬，只留下较轻的画框。此案为虚构推理谜题。"},
+{ id:6,title:"永远晚到的列车",meta:"案件编号 KMD-006 · 不可能时间 · 难度：★★★",level:"高级案件",
+story:"一名乘客在 08:00 登上一列从北站开往南站的列车。列车按时出发，车程两小时。可他在 08:30 就出现在南站监控中。列车工作人员确认，列车没有中途停靠，也没有其他列车提前抵达。乘客本人坚持自己没有说谎。调查人员查看车票后发现，车票上的日期和站名都没有问题。乘客是如何提前抵达的？",
+clues:[["车站名称","北站和南站是两座不同城市中同名的车站。"],["车票","车票日期正确，但没有注明乘客从哪一个城市的北站出发。"],["监控","南站监控时间比北站快了 90 分钟。"],["时区","两座城市位于不同的时区，存在一小时的时差。"],["车程","列车实际运行两小时，未提前抵达。"],["乘客证词","乘客说的 08:30 是当地钟表显示的时间。"]],
+answers:[
+{keys:["监控","时间","时钟"],a:"是。两地的时间记录需要先校准，不能直接比较。",clue:2},
+{keys:["时区","时差"],a:"是。地理位置可能让同一时刻显示出不同的当地时间。",clue:3},
+{keys:["北站","南站","车站"],a:"是。相同名称的车站可能位于不同城市。",clue:0},
+{keys:["车票","日期"],a:"是。车票没有错误，但它提供的信息并不完整。",clue:1},
+{keys:["两小时","车程","提前"],a:"是。列车并没有违反正常运行时间。",clue:4}
+],
+hint:["先不要怀疑列车速度，核对两个监控系统的时钟。","除了监控误差，还要考虑两座城市当地时间是否相同。","北站与南站分别位于不同时区，南站当地时间比北站快一小时；再加上监控时钟误差，造成了乘客提前出现的假象。"],
+solution:"真相还原：北站与南站是不同城市的同名车站，且位于不同的时区。南站当地时间比北站快一小时，监控系统又存在 90 分钟的时钟偏差。调查人员最初直接比较两地监控时间，才误以为乘客提前抵达。列车实际行驶了完整的两小时。此案为虚构推理谜题。"},
+{ id:7,title:"空房间里的掌声",meta:"案件编号 KMD-007 · 声音推理 · 难度：★★☆",level:"进阶案件",
+story:"一位作曲家被发现死在隔音工作室里。邻居说，案发当晚 23:00 曾听见工作室里传出热烈掌声，随后是一段钢琴旋律。警方进入工作室时，里面只有一台电脑、一架钢琴和一把椅子。门窗都从内部锁着，电脑还在播放一段演出录音。法医推断，作曲家在掌声响起前已经死亡。掌声是谁鼓的？",
+clues:[["电脑","电脑播放列表显示，录音在当晚 22:40 已经启动。"],["录音","掌声和钢琴声来自同一段现场演出录音。"],["门窗","门窗没有被打开，现场没有第二个人的痕迹。"],["音箱","工作室装有隐藏式环绕音箱，声音可以模拟来自不同方向。"],["椅子","椅子上有一只耳机，耳机仍连接电脑。"],["文件信息","音频文件是作曲家两年前的一场公开演出。"]],
+answers:[
+{keys:["录音","电脑","播放"],a:"是。声音不一定来自案发现场的实时活动。",clue:0},
+{keys:["掌声","钢琴","音乐"],a:"是。掌声与钢琴声属于同一段音频。",clue:1},
+{keys:["音箱","扬声器","环绕"],a:"是。声音设备可以制造空间错觉。",clue:3},
+{keys:["耳机","椅子"],a:"是。耳机说明死者生前可能正在使用电脑音频设备。",clue:4},
+{keys:["两年前","演出","文件"],a:"是。录音文件的来源时间与案发时间不同。",clue:5}
+],
+hint:["掌声听起来像现场发生，但它是否一定是实时的？","检查音频文件的来源和播放时间。","掌声来自两年前的演出录音，电脑在作曲家死亡后继续自动播放，邻居误把录音当成了现场活动。"],
+solution:"真相还原：掌声并不是有人在空房间里鼓掌，而是电脑自动播放的两年前演出录音。作曲家提前设置了播放列表，录音在 22:40 启动，23:00 播放到掌声和钢琴段落。邻居听到的是音箱发出的录音，因此误以为作曲家当时仍然活着。此案为虚构推理谜题。"},
+{ id:8,title:"雪地上的单行脚印",meta:"案件编号 KMD-008 · 现场重建 · 难度：★★★",level:"高级案件",
+story:"冬季，一名登山者被发现死在山间小屋外。小屋四周覆盖着厚雪，警方发现一串脚印从小屋门口延伸到树林深处，却没有任何脚印返回。小屋门从里面反锁，窗户没有破损。死者穿着登山靴，鞋底纹路与雪地脚印完全一致。警方却认为，死者并不是走进树林的人。为什么？",
+clues:[["脚印深度","所有脚印深度几乎一致，没有明显的回程或负重差异。"],["屋檐","小屋屋檐下堆积着大量新雪，部分雪块有断裂痕迹。"],["树枝","树林边缘的低矮树枝上挂着一段断裂的安全绳。"],["鞋底","死者的登山靴鞋底纹路与脚印一致，但鞋底没有新雪嵌入。"],["风向","当晚风向从树林吹向小屋，雪面有明显风蚀。"],["绳索","小屋储物间少了一卷登山绳。"]],
+answers:[
+{keys:["脚印","雪","返回"],a:"是。脚印只有一个方向，并不代表只有一个人经过。",clue:0},
+{keys:["屋檐","雪块","屋顶"],a:"是。屋顶和屋檐可能留下了被忽视的痕迹。",clue:1},
+{keys:["树枝","绳","安全绳"],a:"是。树林边缘的绳索痕迹值得重点调查。",clue:2},
+{keys:["鞋底","登山靴","鞋"],a:"是。鞋底状态与雪地脚印之间存在矛盾。",clue:3},
+{keys:["风","风向"],a:"是。风可能改变雪地表面的痕迹。",clue:4},
+{keys:["储物间","登山绳","绳索"],a:"是。少掉的绳索可能解释了脚印形成方式。",clue:5}
+],
+hint:["思考脚印是否一定是人直接踩出来的。","鞋底没有新雪嵌入，说明鞋子可能没有真正踩过雪。","有人穿着死者的靴子倒退或借助绳索制造脚印，真正的行动路线要结合屋檐、树枝和绳索判断。"],
+solution:"真相还原：脚印是被人为伪造的。凶手将死者的登山靴固定在长杆或绳索装置上，从小屋附近逐步压出一串脚印，再利用风雪掩盖操作痕迹。鞋底没有新雪嵌入，说明靴子并未像正常行走那样踩踏雪面。屋檐断雪、树枝上的绳索和失踪的登山绳揭示了伪造过程。此案为虚构推理谜题。"},
+{ id:9,title:"照片里的陌生人",meta:"案件编号 KMD-009 · 图像线索 · 难度：★☆☆",level:"初级案件",
+story:"一名摄影师在整理旧照片时，发现一张十年前的家庭合影里多出了一个陌生人。照片拍摄当天，家中只有四位成员，所有人都确认没有陌生访客。更奇怪的是，这个人站在镜子前，却没有出现在镜子里的反射中。照片没有经过后期处理，底片也保存完好。陌生人究竟是什么？",
+clues:[["镜面","照片中的镜子其实是一块黑色玻璃屏幕，并未开启。"],["底片","底片没有拼接或剪贴痕迹。"],["拍摄角度","陌生人位于摄影师身后，处在镜头可拍摄范围内。"],["玻璃反光","玻璃表面反射出窗外的景物，但没有反射室内人物。"],["照片背面","照片背面写着“电视关机前最后一张”。"],["家庭成员","当时家中四人都在电视屏幕前，摄影师使用定时快门。"]],
+answers:[
+{keys:["镜子","反射","玻璃"],a:"是。你把黑色玻璃屏幕误认为镜子了。",clue:0},
+{keys:["底片","后期","合成"],a:"是。照片没有被修改，答案要从现场环境寻找。",clue:1},
+{keys:["电视","屏幕","关机"],a:"是。照片里的“陌生人”与屏幕状态有关。",clue:4},
+{keys:["摄影师","定时","快门"],a:"是。摄影师当时不在合影队伍里。",clue:5},
+{keys:["反光","窗外"],a:"是。玻璃的反射效果说明它并不是普通镜子。",clue:3}
+],
+hint:["重新判断照片里那面“镜子”究竟是什么。","照片背面的文字可能是最直接的提示。","陌生人其实是电视屏幕上的影像，电视关闭前的画面被拍进照片；黑屏玻璃并非镜子，因此不会出现室内人物的反射。"],
+solution:"真相还原：照片中的陌生人并不是真实站在房间里的访客，而是电视屏幕上正在播放的人物画面。所谓镜子其实是电视屏幕，拍摄时电视尚未完全关闭，屏幕影像被相机记录下来。黑色玻璃屏幕没有形成室内人物的镜面反射，因此看起来像是一个没有倒影的陌生人。此案为虚构推理谜题。"},
+{ id:10,title:"最后一盏灯",meta:"案件编号 KMD-010 · 逻辑推断 · 难度：★★★",level:"高级案件",
+story:"一栋公寓发生盗窃案。警方发现，整栋楼在 22:00 停电了整整十分钟。只有顶层住户声称自己在停电期间看见楼下有人搬运保险箱，因为他家的灯是整栋楼最后熄灭的。可电力公司记录显示，整栋楼的供电在 22:00 同时中断。顶层住户为什么能看见搬运过程？",
+clues:[["供电记录","整栋楼的市电在 22:00 同时中断。"],["顶层灯光","顶层住户使用的是带电池的应急灯。"],["窗户","顶层窗户正对着楼下大厅的玻璃天井。"],["保险箱","被搬运的保险箱其实是空箱，重量很轻。"],["电梯","停电后电梯停止运行，楼梯间应急照明仍工作。"],["证词","顶层住户描述的搬运细节，与监控恢复后的画面完全一致。"]],
+answers:[
+{keys:["停电","供电","电力"],a:"是。停电不代表所有光源都会消失。",clue:0},
+{keys:["应急灯","电池","灯"],a:"是。顶层住户确实有独立电源。",clue:1},
+{keys:["窗户","天井","玻璃"],a:"是。观察位置和视线方向很重要。",clue:2},
+{keys:["保险箱","空箱","重量"],a:"是。箱子的重量说明搬运者可能并没有真正搬走财物。",clue:3},
+{keys:["楼梯","电梯","照明"],a:"是。停电期间仍有部分区域可以被照亮。",clue:4},
+{keys:["证词","监控","细节"],a:"是。证词可能来自事后看到的画面，而非现场目击。",clue:5}
+],
+hint:["停电时，顶层住户是否真的拥有照明？","再考虑他描述的细节是否可能来自事后信息。","顶层住户并非现场目击者。他利用应急灯和窗户制造目击者身份，实际细节来自停电恢复后的监控回放；空保险箱只是另一个误导。"],
+solution:"真相还原：顶层住户并没有在停电期间看见盗窃过程。他拥有电池应急灯，故意声称自己是唯一能观察现场的人，以此制造可信的目击者身份。但他描述的细节实际上来自停电恢复后查看的监控画面。空保险箱是搬运者设置的诱饵，真正被盗的物品早已通过其他路线转移。此案为虚构推理谜题。"}
+];
+let current=0,score=0,solved=new Set(),found=new Set(),hintLevel=0;
+const $=id=>document.getElementById(id);
+function renderList(){ $("caseList").innerHTML=cases.map((c,i)=>`<button class="case ${i===current?'active':''}" data-i="${i}"><span class="level">${c.level}</span><b>${String(i+1).padStart(2,'0')} · ${c.title}</b><small>${c.meta.split('·')[1]} · ${solved.has(c.id)?'✓ 已结案':'待调查'}</small></button>`).join('');document.querySelectorAll('.case').forEach(b=>b.onclick=()=>loadCase(+b.dataset.i));$("solvedCount").textContent=solved.size;$("score").textContent=score}
+function addMsg(who,txt){let d=document.createElement('div');d.className='msg '+(who==='你'?'player':'host');d.innerHTML='<b>'+who+'</b>';let s=document.createElement('span');s.textContent=txt;d.appendChild(s);$('chat').appendChild(d);$('chat').scrollTop=$('chat').scrollHeight}
+function renderEvidence(){let c=cases[current];$('evidence').innerHTML=c.clues.map((x,i)=>`<div class="clue ${found.has(i)?'found':'locked'}"><strong>${found.has(i)?'✓ '+x[0]:'？？？ 未解锁线索 '+(i+1)}</strong>${found.has(i)?x[1]:'通过提问或提示逐步发现这条证据。'}</div>`).join('')}
+function loadCase(i){current=i;found=new Set();hintLevel=0;$('caseTitle').textContent=cases[i].title;$('caseMeta').textContent=cases[i].meta;$('caseLevel').textContent=cases[i].level;$('story').textContent=cases[i].story;$('chat').innerHTML='';$('theory').value='';addMsg('档案系统','调查开始。你可以自由提问，答案只会提供方向，不会直接替你破案。');renderEvidence();renderList()}
+function ask(){let q=$('question').value.trim();if(!q)return;addMsg('你',q);$('question').value='';let c=cases[current],hit=c.answers.find(x=>x.keys.some(k=>q.toLowerCase().includes(k.toLowerCase())));let reply=hit?hit.a:'不重要，至少目前这不是案件的关键。换个角度提问，试着关注时间、地点、人物关系或现场物证。';if(hit&&hit.clue!==undefined&&!found.has(hit.clue)){found.add(hit.clue);score+=3;renderEvidence();$('score').textContent=score}setTimeout(()=>addMsg('档案系统',reply),180)}
+function hint(){let c=cases[current];if(hintLevel>=c.hint.length){addMsg('档案系统','当前提示已全部解锁。请整理证据并提交你的推理。');return}score=Math.max(0,score-5);addMsg('调查提示',c.hint[hintLevel++]);$('score').textContent=score;if(hintLevel===3){found=new Set(c.clues.map((_,i)=>i));renderEvidence()}}
+function reveal(){let c=cases[current];if(!solved.has(c.id)){solved.add(c.id);score+=Math.max(0,20-hintLevel*5);renderList()}$('modalTitle').textContent='案件结案报告 · '+c.title;$('solution').textContent=c.solution+'\n\n你的推理记录：\n'+($('theory').value.trim()||'（未填写）');$('overlay').classList.add('show')}
+function reset(){found=new Set();hintLevel=0;$('chat').innerHTML='';addMsg('档案系统','调查记录已重置。重新检查现场，寻找突破口。');renderEvidence()}
+$('askBtn').onclick=ask;$('question').addEventListener('keydown',e=>{if(e.key==='Enter')ask()});$('hintBtn').onclick=hint;$('solveBtn').onclick=reveal;$('resetBtn').onclick=reset;$('closeModal').onclick=()=>$('overlay').classList.remove('show');$('nextBtn').onclick=()=>$('overlay').classList.remove('show');
+renderList();loadCase(0);
+</script>
+</body>
+</html>
